@@ -32,7 +32,7 @@ class Mock(MagicMock):
     def __getattr__(cls, name):
         return MagicMock()
  
-MOCK_MODULES = ['numpy']
+MOCK_MODULES = ['numpy', 'pandas']
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # -- General configuration ------------------------------------------------
