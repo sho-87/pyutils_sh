@@ -18,5 +18,5 @@ setup(name='pyutils_sh',
         'Programming Language :: Python :: 3',
         'Topic :: Scientific/Engineering',
       ],
-      keywords='python utilities survey exam gaze spss data research',
+      keywords='python utilities survey exam gaze spss data research statistics',
       zip_safe=True)
