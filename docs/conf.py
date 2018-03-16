@@ -23,7 +23,7 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../pyutils_sh'))
+sys.path.insert(0, os.path.abspath('../'))
 
 from mock import Mock as MagicMock
  
