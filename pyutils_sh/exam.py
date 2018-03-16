@@ -1,3 +1,8 @@
+"""
+Functions for aggregating and analyzing exam-related data, such as calculating 
+student exam performance.
+"""
+
 import csv
 import os
 import pandas as pd
@@ -6,41 +11,46 @@ import pandas as pd
 def grade_scantron(input_scantron, correct_answers, drops=[], 
                    item_value=1, incorrect_threshold=0.5):
     """
-     - Compiles scantron data and calculates exam grades for each student.
-     - Also provides a summary of exam performance, as well as a list of the questions "most" students got incorrect and saves the distribution of answers for those poorly performing questions
-     - Takes 1 scantron text file and outputs 2 summary grade files.
-     - Splitting of the scantron file is specific to each scantron machine. The indices used in this script are correct for the scantron machine in the UBC Psychology department. Indices need to be adjusted for different machines.
-     - Scantron exams can be finicky. Students who incorrectly fill out scantrons need to be considered. Make sure to manually inspect the text file output by the scantron machine for missing answers etc. before running this. This script does not correct for human error when filling out the scantron.
+    Calculate student grades from scantron data.
+
+    Compiles data collected from a scantron machine (5-option multiple choice 
+    exam) and calculates grades for each student. Also provides descriptive 
+    statistics of exam performance, as well as a list of the questions "most" 
+    students got incorrect, and saves the distribution of answers for those 
+    poorly performing questions.
     
-    # text file generated from scantron machine (make sure to manually inspect
-    # the scantron file first to make sure there are no missing answers etc.)
-    inputFile = input_scantron
+    This function receives 1 scantron text file and produces 2 output files. 
+    Splitting of the scantron data is specific to each scantron machine. The 
+    indices used in this function are correct for the scantron machine in the 
+    UBC Psychology department as of 2015. Indices need to be adjusted for 
+    different machines.
     
-    # list of question numbers to be dropped from all calculations e.g. [1, 3, 5]
-    dropItems = drops
+    Scantron exams can be finicky. Students who incorrectly fill out scantrons 
+    need to be considered. Make sure to manually inspect the text file output 
+    by the scantron machine for missing answers before running this. This 
+    function does not correct for human error when filling out the scantron.
     
-    # how many points is each MC question worth?
-    itemWorth = item_value
-    
-    # Threshold for the summary file. Questions where the correct count is
-    # less than this proportion/threshold are flagged in the output summary
-    # file
-    incorrectThreshold = incorrect_threshold
-    
-    # list containing the CORRECT answers for each question. Update this for
-    # every exam
-    #    correctAnswers = [
-    #        "A",  # 1
-    #        "B",  # 2
-    #        "D",  # 3
-    #        "B",  # 4
-    #        "C",  # 5
-    #        "D",  # 6
-    #        "C",  # 7
-    #        "E",  # 8
-    #        "A",  # 9
-    #        "E"  # 10
-    #    ]
+    Parameters
+    ----------
+    input_scantron : string
+        Path to the .txt file produced by the scantron machine.
+    correct_answers : list
+        A list of strings containing the *correct* exam answers. For example: 
+        ["A", "E", "D", "A", B"]. The order must match the order of 
+        presentation on the exam (i.e. the first list item must correspond 
+        to the first exam question)
+    drops : list, optional
+        List of integers containing question numbers that should be excluded  
+        from calculation of grades. For example: [1, 5] will not include 
+        questions 1 and 5 when calculating exam scores.
+    item_value : int, optional
+        Integer representing how many points each exam question is worth.
+    incorrect_threshold : float between [0., 1.], optional
+        Poorly performing questions are those where few students got the 
+        correct answer. This parameter sets the threshold at which an item is 
+        considered poor. For example, a threshold of 0.4 means that a poor 
+        item is considered to be one where less than 40% of students 
+        chose the correct answer.
     """
     
     # Start and end locations of various pieces of information in the scantron text file.

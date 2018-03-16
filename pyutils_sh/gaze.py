@@ -1,24 +1,60 @@
+"""
+Functions for calculating various gaze/eye-tracking related statistics.
+"""
+
 import numpy as np
 
 
 def cross_correlation(person1, person2, framerate=25, constrain_seconds=2):
     """
-     - This function takes 2 lists/arrays of data and calculates the normalized max cross-correlation value with its associated lag.
-     - Additionally, it will also return the cross-correlation value at 0 lag, as well as the entire normalized array as a python list.
-     - You can manually set the time constraints by changing the variable values.
+    Calculate cross-correlation between two gaze signals.
+
+    This function takes 2 lists/arrays of data, each containing an individual's 
+    coded gaze data from an eye-tracker, and calculates the normalized max 
+    cross-correlation value with its associated lag.
+    
+    Additionally, it will also return the cross-correlation value at 0 lag, as 
+    well as the entire normalized array as a Python list.
  
-    negative lag means person2 lags behind person1 by x frames
+    Negative lag value means person2 lagged behind person1 by x frames
     e.g.
-    A = [0,1,2,3,0,0,0]
-    B = [0,0,0,1,2,3,0]
+    A = [0,1,1,1,0,0,0]
+    B = [0,0,0,1,1,1,0]
     cross_correlation(A,B)
 
-
-    positive lag means person1 lags behind person2 by x frames
+    Positive lag value means person1 lagged behind person2 by x frames
     e.g.
-    A = [0,0,0,1,2,3,0]
-    B = [0,1,2,3,0,0,0]
+    A = [0,0,0,1,1,1,0]
+    B = [0,1,1,1,0,0,0]
     cross_correlation(A,B)
+
+    Parameters
+    ----------
+    person1 : ndarray or list
+        1D array of person 1's gaze over time, coded as 0 = not looking, 
+        1 = looking. The values represent whether the person was looking at a 
+        target at a particular point in time.
+    person2 : ndarray or list
+        1D array of person 2's gaze over time, coded as 0 = not looking, 
+        1 = looking. The values represent whether the person was looking at a 
+        target at a particular point in time.
+    framerate : int, optional
+        The framerate (frames per second) of the eye-tracker.
+    constrain_seconds : int, optional
+        Number of seconds to constrain the cross-correlation values by. The 
+        returned lags and cross-correlations will be centered around 0 lag by 
+        this many seconds.
+
+    Returns
+    -------
+    max_R : float
+        Maximum (normalized) cross-correlation value.
+    max_lag_adj : float
+        Lag at which max cross-correlation occurs.
+    zero_R : float
+        Cross-correlation value at 0 lag.
+    norm_array : list
+        A list of all (normalized) cross-correlation values.
     """
 
     # convert lists to numpy arrays
@@ -51,6 +87,4 @@ def cross_correlation(person1, person2, framerate=25, constrain_seconds=2):
     # Get the normalized zero lag correlation value
     zero_R = norm_array[lag_limits]
 
-    # returns (max cross correlation, lag of max correlation), 0 lag
-    # correlation, the entire normalized array
-    return (float(max_R), float(max_lag_adj), float(zero_R), norm_array.tolist())
+    return float(max_R), float(max_lag_adj), float(zero_R), norm_array.tolist()
