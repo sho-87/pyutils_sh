@@ -4,9 +4,6 @@
  - Takes 1 scantron text file and outputs 2 summary grade files.
  - Splitting of the scantron file is specific to each scantron machine. The indices used in this script are correct for the scantron machine in the UBC Psychology department. Indices need to be adjusted for different machines.
  - Scantron exams can be finicky. Students who incorrectly fill out scantrons need to be considered. Make sure to manually inspect the text file output by the scantron machine for missing answers etc. before running this. This script does not correct for human error when filling out the scantron.
- - Requires the pandas module.
-
- - Simon Ho (www.simonho.ca)
 """
 
 import csv
