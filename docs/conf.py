@@ -1,17 +1,3 @@
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../'))
-
-from mock import Mock as MagicMock
- 
-class Mock(MagicMock):
-    @classmethod
-    def __getattr__(cls, name):
-        return MagicMock()
- 
-MOCK_MODULES = ['numpy']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
@@ -35,6 +21,19 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../'))
+
+from mock import Mock as MagicMock
+ 
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+ 
+MOCK_MODULES = ['numpy']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 # -- General configuration ------------------------------------------------
 
@@ -47,7 +46,12 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 # ones.
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
     'sphinx.ext.viewcode']
+
+napoleon_google_docstring = False
+napoleon_use_param = False
+napoleon_use_ivar = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
