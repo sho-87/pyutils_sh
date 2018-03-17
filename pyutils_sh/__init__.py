@@ -29,6 +29,8 @@ exam
     Functions for aggregating different types of data from school exams (e.g. student grades)
 gaze
     Functions for analyzing gaze/eye-tracking data
+stats
+    Tools for calculating different types of statistics
 survey
     Tools for aggregating and analyzing data from different surveys
 utils
@@ -37,5 +39,6 @@ utils
 
 import pyutils_sh.exam
 import pyutils_sh.gaze
+import pyutils_sh.stats
 import pyutils_sh.survey
 import pyutils_sh.utils
