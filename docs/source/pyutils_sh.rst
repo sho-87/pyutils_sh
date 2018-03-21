@@ -4,6 +4,14 @@ pyutils\_sh package
 Submodules
 ----------
 
+pyutils\_sh\.battery module
+---------------------------
+
+.. automodule:: pyutils_sh.battery
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pyutils\_sh\.exam module
 ------------------------
 
@@ -16,6 +24,14 @@ pyutils\_sh\.gaze module
 ------------------------
 
 .. automodule:: pyutils_sh.gaze
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyutils\_sh\.stats module
+-------------------------
+
+.. automodule:: pyutils_sh.stats
     :members:
     :undoc-members:
     :show-inheritance:

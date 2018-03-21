@@ -25,6 +25,9 @@ function or module:
 
 Modules
 -------
+battery
+    Functions for aggregating subject data from 
+    Cognitive Battery (https://github.com/sho-87/cognitive-battery)
 exam
     Functions for aggregating different types of data from school exams (e.g. student grades)
 gaze
@@ -34,9 +37,10 @@ stats
 survey
     Tools for aggregating and analyzing data from different surveys
 utils
-    General utility functions used for general Python programming
+    General utility functions used for Python programming
 """
 
+import pyutils_sh.battery
 import pyutils_sh.exam
 import pyutils_sh.gaze
 import pyutils_sh.stats
