@@ -13,16 +13,14 @@ def get_path(f=sys.argv[0]):
     Parameters
     ----------
     f : string, optional
-        Full path to a file e.g. 'C:\Users\Simon\Desktop\file.txt'. Defaults 
-        to the currently executing Python file.
-
+        Full path to a file. Defaults to the currently executing Python file.
+        
     Returns
     -------
     directory : string
         Path to the directory containing the file.
-    filename : float
+    filename : string
         Name of the file.
     """
     
     return os.path.split(f)
-    
