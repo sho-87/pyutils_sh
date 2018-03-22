@@ -12,14 +12,14 @@ def get_path(f=sys.argv[0]):
     
     Parameters
     ----------
-    f : string, optional
+    f : str, optional
         Full path to a file. Defaults to the currently executing Python file.
         
     Returns
     -------
-    directory : string
+    directory : str
         Path to the directory containing the file.
-    filename : string
+    filename : str
         Name of the file.
     """
     
