@@ -38,6 +38,9 @@ def aggregate(dir_battery, dir_output, response_type="full", save=True):
         Pandas dataframe containing the aggregated summary data for all tasks.
     """
     
+    # TODO add long/wide data
+    # TODO add option to not recalculate the data if summary file already exists
+    
     # Create dataframes
     df_info = pd.DataFrame(columns=["sub_num", "datetime",
                                     "condition", "age", "sex", "RA"])
