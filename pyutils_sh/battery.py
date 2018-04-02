@@ -7,7 +7,7 @@ import os
 import pandas as pd
 
 
-def aggregate(dir_battery, dir_output, response_type="full",
+def aggregate_wide(dir_battery, dir_output, response_type="full",
               use_file=False, save=True):
     """
     Aggregate data from all battery tasks.
