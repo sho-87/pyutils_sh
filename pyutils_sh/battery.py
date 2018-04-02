@@ -7,7 +7,8 @@ import os
 import pandas as pd
 
 
-def aggregate(dir_battery, dir_output, response_type="full", save=True):
+def aggregate(dir_battery, dir_output, response_type="full",
+              use_file=False, save=True):
     """
     Aggregate data from all battery tasks.
 
@@ -27,6 +28,9 @@ def aggregate(dir_battery, dir_output, response_type="full", save=True):
     response_type : {'full', 'correct', 'incorrect'}, optional
         Should the summary data be calculated using all trials? Only correct 
         trials? Or only incorrect trials? This is not supported in all tasks.
+    use_file : bool, optional
+        If True, aggregated battery data will be imported from the existing
+        summary file instead of being re-aggregated.
     save : bool, optional
         Set to True to save an output summary file to the output directory. 
         If False, then no file will be saved, but a dataframe will still be 
@@ -37,10 +41,11 @@ def aggregate(dir_battery, dir_output, response_type="full", save=True):
     all_data : dataframe
         Pandas dataframe containing the aggregated summary data for all tasks.
     """
-    
-    # TODO add long/wide data
-    # TODO add option to not recalculate the data if summary file already exists
-    
+
+    if use_file:
+        if os.path.isfile(os.path.join(dir_output, "battery_data.csv")):
+            return pd.read_csv(os.path.join(dir_output, "battery_data.csv"))
+
     # Create dataframes
     df_info = pd.DataFrame(columns=["sub_num", "datetime",
                                     "condition", "age", "sex", "RA"])
