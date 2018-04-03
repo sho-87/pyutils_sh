@@ -8,7 +8,7 @@ import pandas as pd
 
 
 def aggregate_wide(dir_battery, dir_output, response_type="full",
-              use_file=False, save=True):
+                   use_file=False, save=True):
     """
     Aggregate data from all battery tasks.
 
@@ -44,6 +44,7 @@ def aggregate_wide(dir_battery, dir_output, response_type="full",
 
     if use_file:
         if os.path.isfile(os.path.join(dir_output, "battery_data.csv")):
+            print("Importing battery summary file...")
             return pd.read_csv(os.path.join(dir_output, "battery_data.csv"))
 
     # Create dataframes
