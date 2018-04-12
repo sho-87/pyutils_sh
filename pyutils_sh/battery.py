@@ -43,9 +43,11 @@ def aggregate_wide(dir_battery, dir_output, response_type="full",
     """
 
     if use_file:
-        if os.path.isfile(os.path.join(dir_output, "battery_data.csv")):
+        if os.path.isfile(os.path.join(dir_output,
+                                       "battery_data_{}.csv".format(response_type))):
             print("Importing battery summary file...")
-            return pd.read_csv(os.path.join(dir_output, "battery_data.csv"))
+            return pd.read_csv(os.path.join(dir_output,
+                                            "battery_data_{}.csv".format(response_type)))
 
     # Create dataframes
     df_info = pd.DataFrame(columns=["sub_num", "datetime",
@@ -162,7 +164,7 @@ def aggregate_wide(dir_battery, dir_output, response_type="full",
                     df_sternberg.loc[df_sternberg.shape[0]] = aggregate_sternberg(data, sub_num, response_type)
     
     # Merge task data
-    ## Only merge tasks that were used
+    # Only merge tasks that were used
     tasks = [df_ant, df_digit, df_flanker_compat, df_flanker_incompat,
              df_flanker_both, df_mrt, df_ravens, df_sart, df_sternberg]
     
@@ -176,7 +178,8 @@ def aggregate_wide(dir_battery, dir_output, response_type="full",
     
     # Save output csv
     if save:
-        all_data.to_csv(os.path.join(dir_output, "battery_data.csv"),
+        all_data.to_csv(os.path.join(dir_output,
+                                     "battery_data_{}.csv".format(response_type)),
                         index=False, sep=",")
 
     return all_data
