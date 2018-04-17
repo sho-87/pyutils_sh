@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pyutils_sh',
-      version='1.2.0',
+      version='1.3.0',
       description='Assortment of Python utilities for my personal projects',
       url='https://github.com/sho-87/pyutils_sh',
       author='Simon Ho',
