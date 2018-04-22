@@ -10,7 +10,8 @@ Welcome to pyutils_sh's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+.. include:: ../README.rst
+   :start-after: inclusion-marker-main-readme
 
 Indices and tables
 ==================

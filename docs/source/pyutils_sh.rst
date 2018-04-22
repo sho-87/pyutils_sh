@@ -1,6 +1,14 @@
 pyutils\_sh package
 ===================
 
+Module contents
+---------------
+
+.. automodule:: pyutils_sh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Submodules
 ----------
 
@@ -28,6 +36,14 @@ pyutils\_sh\.gaze module
     :undoc-members:
     :show-inheritance:
 
+pyutils\_sh\.image module
+-------------------------
+
+.. automodule:: pyutils_sh.image
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pyutils\_sh\.stats module
 -------------------------
 
@@ -48,15 +64,6 @@ pyutils\_sh\.utils module
 -------------------------
 
 .. automodule:: pyutils_sh.utils
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: pyutils_sh
     :members:
     :undoc-members:
     :show-inheritance:
