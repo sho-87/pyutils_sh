@@ -4,6 +4,7 @@ Functions for aggregating and analyzing different types of survey data.
 
 import numpy as np
 import pandas as pd
+import string
 
 
 def ipaq_to_minutes(hours, mins):
@@ -279,3 +280,63 @@ def ipaq_long_aggregate(q_map, domains=False):
     aggregated['sub_num'] = sub_num.astype(int)
 
     return aggregated
+
+
+def pas_aggregate(q_map):
+    """
+    Aggregate PAS questionnaire data
+
+    The original development paper: Aadahl_Jørgensen (2003) - Validation of a New Self-Report 
+    Instrument for Measuring Physical Activity
+
+    Parameters
+    ----------
+    q_map : dict
+        Dictionary mapping question names to separate Pandas columns/series.
+        This is used so internally the function uses a consistent name for
+        each column of the survey (which may be named differently).
+
+        The dictionary keys follow a strict naming scheme of 'a', 'b' ... 'i', 
+        where each key represents a PAS category. Time variables need to be split, 
+        and hours and minutes must be stored under separate keys. 
+        The naming scheme for the time variables are `x_hours` and `x_mins`. 
+        The dictionary must also contain a column of subject numbers under the key `sub_num`.
+
+        An example dictionary might look like this:
+
+        >>> pas_qmap = {'sub_num': df['subNum'],
+                        'a_hours': df['PAS_a_hours'],
+                        'a_mins': df['PAS_a_mins'],
+                        'b_hours': df['PAS_b_hours'],
+                        'b_mins': df['PAS_b_mins'] ... }
+
+    Returns
+    -------
+    aggregated : dataframe
+        Pandas dataframe containing the calculated PAS summary data.
+    """
+
+    df = pd.DataFrame()
+
+    # MET values for each activity category from the original paper
+    mets = {'a': 0.9,
+            'b': 1,
+            'c': 1.5,
+            'd': 2,
+            'e': 3,
+            'f': 4,
+            'g': 5,
+            'h': 6,
+            'i': 7}
+
+    for letter in string.ascii_lowercase[:9]:
+        # time conversion
+        df['{}_met_hours'.format(letter)] = q_map['{}_hours'.format(letter)].astype(float) + q_map['{}_mins'.format(letter)].astype(float)/60
+
+        # multiply mets
+        df['{}_met_hours'.format(letter)] *= mets[letter]
+
+    df['total_met_hours'] = df.sum(axis=1)
+    df['sub_num'] = q_map['sub_num'].astype(int)
+
+    return(df)
