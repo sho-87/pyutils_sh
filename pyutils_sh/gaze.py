@@ -62,13 +62,13 @@ def cross_correlation(person1, person2, framerate=25, constrain_seconds=2):
     y = np.array(person2)
 
     # calculate cross correlation values
-    correlations = np.correlate(x, y, 'full')
+    correlations = np.correlate(x, y, "full")
 
     # trim the cross-correlation values to a range (-lag_limits : +lag_limits)
     # trim AFTER cross correlation calculation to avoid 0 padding of signals
     # assumes x and y are equal length
-    lag_limits = constrain_seconds*framerate
-    trimmed_correlations = correlations[len(x)-1-lag_limits:len(x)+lag_limits]
+    lag_limits = constrain_seconds * framerate
+    trimmed_correlations = correlations[len(x) - 1 - lag_limits : len(x) + lag_limits]
 
     # normalize the cross-correlation values for ease of comparison between
     # subjects
@@ -76,7 +76,7 @@ def cross_correlation(person1, person2, framerate=25, constrain_seconds=2):
 
     # get maximum normalized cross-correlation value
     max_R = max(norm_array)
-    
+
     # get lag of max correlation value
     max_lag = np.argmax(norm_array)
 

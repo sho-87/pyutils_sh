@@ -35,10 +35,10 @@ def cohens_d(g1_m, g1_sd, g1_n, g2_m, g2_sd, g2_n):
     """
 
     mean_diff = g2_m - g1_m
-    
-    sd_num = ((g1_n - 1)*np.square(g1_sd)) + ((g2_n - 1)*np.square(g2_sd))
+
+    sd_num = ((g1_n - 1) * np.square(g1_sd)) + ((g2_n - 1) * np.square(g2_sd))
     sd_denom = g1_n + g2_n - 2
-    
+
     sd_pooled = np.sqrt(sd_num / sd_denom)
-    
-    return mean_diff/sd_pooled
+    return mean_diff / sd_pooled
+

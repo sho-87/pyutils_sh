@@ -22,5 +22,5 @@ def get_path(f=sys.argv[0]):
     filename : str
         Name of the file.
     """
-    
+
     return os.path.split(f)
