@@ -22,6 +22,7 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 import os
+import re
 import sys
 sys.path.insert(0, os.path.abspath('../'))
 
@@ -39,8 +40,9 @@ sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
 def get_version():
-    version_file = open('../VERSION')
-    return version_file.read().strip()
+    with open('../pyutils_sh/version.py') as f:
+        p = re.compile(r"'.*'$")
+        return re.findall(p, f.read().strip())[0]
 
 # -- General configuration ------------------------------------------------
 
