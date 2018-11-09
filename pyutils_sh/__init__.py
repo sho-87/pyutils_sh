@@ -49,3 +49,4 @@ import pyutils_sh.image
 import pyutils_sh.stats
 import pyutils_sh.survey
 import pyutils_sh.utils
+from .version import __version__
