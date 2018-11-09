@@ -28,13 +28,15 @@ def boxcount(img, k):
 
     s = np.add.reduceat(
         np.add.reduceat(img, np.arange(0, img.shape[0], k), axis=0),
-        np.arange(0, img.shape[1], k), axis=1)
+        np.arange(0, img.shape[1], k),
+        axis=1,
+    )
 
     # We count non-empty (0) and non-full boxes (k*k)
-    return len(np.where((s > 0) & (s < k*k))[0])
+    return len(np.where((s > 0) & (s < k * k))[0])
 
 
-def fractal_dimension(img, threshold=.5, mean_threshold=True, plot=False):
+def fractal_dimension(img, threshold=0.5, mean_threshold=True, plot=False):
     """
     Calculate (Minkowski–Bouligand) fractal dimension.
 
@@ -58,29 +60,29 @@ def fractal_dimension(img, threshold=.5, mean_threshold=True, plot=False):
     """
 
     # Only for 2d image
-    assert(len(img.shape) == 2)
+    assert len(img.shape) == 2
 
     # Transform Z into a binary array
     if mean_threshold:
         threshold = np.mean(img)  # Dynamically setting threshold
 
-    img = (img < threshold)
+    img = img < threshold
 
     if plot:
-        plt.imshow(img, cmap=plt.get_cmap('gray'))
+        plt.imshow(img, cmap=plt.get_cmap("gray"))
         plt.show()
 
     # Minimal dimension of image
     p = min(img.shape)
 
     # Greatest power of 2 less than or equal to p
-    n = 2**np.floor(np.log(p)/np.log(2))
+    n = 2 ** np.floor(np.log(p) / np.log(2))
 
     # Extract the exponent
-    n = int(np.log(n)/np.log(2))
+    n = int(np.log(n) / np.log(2))
 
     # Build successive box sizes (from 2**n down to 2**1)
-    sizes = 2**np.arange(n, 1, -1)
+    sizes = 2 ** np.arange(n, 1, -1)
 
     # Actual box counting with decreasing size
     counts = []
@@ -90,8 +92,8 @@ def fractal_dimension(img, threshold=.5, mean_threshold=True, plot=False):
     # Fit the successive log(sizes) with log (counts)
     if plot:
         plt.plot(np.log(sizes), np.log(counts))
-        plt.xlabel('log(box size)')
-        plt.ylabel('log(count)')
+        plt.xlabel("log(box size)")
+        plt.ylabel("log(count)")
         plt.show()
 
     coeffs = np.polyfit(np.log(sizes), np.log(counts), 1)
@@ -116,5 +118,5 @@ def rgb2gray(img):
     """
 
     r, g, b = img[:, :, 0], img[:, :, 1], img[:, :, 2]
-    gray = 299/1000 * r + 587/1000 * g + 114/1000 * b
+    gray = 299 / 1000 * r + 587 / 1000 * g + 114 / 1000 * b
     return gray
