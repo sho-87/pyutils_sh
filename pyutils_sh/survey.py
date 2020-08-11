@@ -373,16 +373,16 @@ def pas_aggregate(q_map):
 
     for letter in string.ascii_lowercase[:9]:
         # time conversion
-        df["{}_met_hours".format(letter)] = (
+        df["{}_hours".format(letter)] = (
             q_map["{}_hours".format(letter)].astype(float)
             + q_map["{}_mins".format(letter)].astype(float) / 60
         )
 
         # multiply mets
-        df["{}_met_hours".format(letter)] *= mets[letter]
+        df["{}_met_hours".format(letter)] = df["{}_hours".format(letter)] * mets[letter]
 
-    df["total_met_hours"] = df.sum(axis=1)
+    df["total_hours"] = df.filter(regex="^.{1}_hours$").sum(axis=1)
+    df["total_met_hours"] = df.filter(regex="^.{1}_met_hours$").sum(axis=1)
     df["sub_num"] = q_map["sub_num"].astype(int)
 
     return df
-
